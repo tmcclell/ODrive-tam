@@ -66,3 +66,14 @@ GUI/build
 
 docs/reStructuredText/_build/
 tools/odrive-cansimple.ini
+
+# Visual Studio
+.vs/
+*.vsidx
+*.wsuo
+*.db
+*.db-shm
+*.db-wal
+*.ipch
+*.sqlite
+.vscode/
