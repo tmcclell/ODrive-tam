@@ -5,7 +5,7 @@ agent: ask
 model: GPT-4o (copilot)
 ---
 
-Refactor [Firmware/MotorControl/](Firmware/MotorControl/) code to use modern C++17 features following the guidelines in [CPP_Coding_Practices.instructions.md](.github/instructions/CPP_Coding_Practices.instructions.md).
+Refactor [Firmware/MotorControl/](../../Firmware/MotorControl/) code to use modern C++17 features following the guidelines in [CPP_Coding_Practices.instructions.md](../instructions/CPP_Coding_Practices.instructions.md).
 
 Specifically look for:
 1. Replaces `macros` with `constexpr`

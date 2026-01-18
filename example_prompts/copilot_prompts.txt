@@ -1,0 +1,127 @@
+# GitHub Copilot Example Prompts for ODrive Repository
+
+Here are 15 example prompts categorized by their usage mode: Ask, Edit, and Agent. These are tailored to the ODrive codebase structure.
+------------------------------------------------------------------------------------------
+## 1. Ask Mode (Exploration & Debugging)
+Use these prompts in the VS Code Chat panel to understand the codebase.
+
+1. **Overall Codebase:**
+   "Explain this project in simple, layman's terms. What is the high-level functionality? Provide a tour of the folder structure and explain the key external dependencies.?"
+
+2. **Architecture Overview:**
+   "Explain the high-level architecture of `Firmware/MotorControl`. How do the `Axis`, `Motor`, and `Encoder` classes interact during the control loop?"
+
+3. **Protocol Understanding:**
+   "How is the custom fibre protocol implemented in #file:fibre.cpp? Explain how an object method on the firmware side is exposed to the Python client."
+
+4. **Debugging Logic:**
+   "I am seeing `ERROR_OVERSPEED` in my logs. Look at #file:axis.cpp and #file:motor.cpp. What specific conditions trigger this error and how can I disable it safely?"
+
+5. **Hardware Specifics:**
+   "What is the pin mapping for the SPI interface in #file:board.cpp? Can you list the GPIO pins used for the DRV8301?"
+
+6. **Tooling Help:**
+   "How does the build system work in this repo? detailed check of #file:Tupfile.lua and explain how the firmware binary is generated from the source files."
+
+------------------------------------------------------------------------------------------------
+## 2. Edit Mode (Code Generation & Refactoring)
+Use these prompts using Inline Chat (Ctrl+I / Cmd+I) directly in the editor.
+
+1. **Multi-File Feature Add (Specific Request):**
+   *Open #file:controller.hpp and #file:controller.cpp (select tabs or use multi-edit).*
+   "Add a new configuration variable `float soft_stop_rate` to the `ControllerConfig` struct. Then, update the `update()` method in `controller.cpp` to use this rate to decelerate the velocity setpoint to zero when the axis state changes to `IDLE`."
+
+2. **Documentation Generation:**
+   *(In #file:can_simple.cpp)*
+   "Add Doxygen-style comments to the `handle_can_message` function, explaining the different message IDs it handles based on the #file:docs/can-protocol.rst documentation."
+
+3. **Script Creation:**
+   *(Create a new file `tools/plot_temp.py`)*
+   "Write a Python script using `odrive.enums` that connects to a generic ODrive, configures the plotter, and graphs `axis0.motor.current_control.Iq_measured` and `axis0.motor.current_control.Iq_setpoint` in real-time."
+
+4. **Code Optimization:**
+   *(In #file:foc.cpp)*
+   "Optimize the `ClarkeTransform` function using NEON intrinsics or faster math approximations if possible, while maintaining readability."
+
+5. **Unit Test Creation:**
+   *(In #file:test_utils.cpp)*
+   "Create a new test case using the `doctest` framework that verifies the `saturate` utility function handles positive, negative, and edge-case inputs correctly."
+
+------------------------------------------------------------------------------------------------
+## 3. Agent Mode (Complex Tasks & Workspace Awareness)
+Use these prompts when you need Copilot to handle multi-step actions, research, or cross-language tasks.
+
+1. **Full Feature Implementation:**
+   "Implement a 'Stall Detection' feature. Research how other motor controllers detect stalls. modifications should likely involve #file:motor.cpp to monitor back-EMF vs current. Create a plan, then add the config flag and the detection logic."
+
+2. **Migration/Porting:**
+   "I want to port the `Arduino/ArduinoI2C` library to work with an STM32-based Arduino core. Analyze #file:ArduinoI2C.ino and identify which hardware-specific AVR registers or libraries need to be abstracted."
+
+3. **System-Wide Refactor:**
+   "Find all instances of raw `printf` debug statements across the `Firmware/` directory. Replace them with a new macro `ODRIVE_LOG()` that respects a compile-time log level defined in #file:freertos_vars.h."
+
+4. **Documentation & Validation:**
+   "Read #file:docs/error-codes.rst and compare it against the actual error enums defined in #file:odrive-interface.yaml. List any discrepancies where the documentation is missing new error codes added to the code."
+
+5. **Integration Test Suite:**
+   "Create a new test plan in `tools/integration_tests/` that uses the `odrivetool` library. It should sequence a full calibration, enter closed loop control, perform a sinusoidal position move, and verify the final position error is within tolerance."
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+### @workspace (Project-Wide Context)
+Use this to let Copilot scan the entire directory structure and index for answers.
+
+1. **Interface Definitions:**
+   "@workspace Trace where `ERROR_PHASE_RESISTANCE_OUT_OF_RANGE` is defined in #file:Firmware/odrive-interface.yaml and find all occurrences where it is raised in the C++ firmware files."
+
+2. **Build System Analysis:**
+   "@workspace Explain the `odrive_firmware_pkg` definition in #file:Firmware/Tupfile.lua. How does it gather the source files from `MotorControl/` and `communication/`?"
+
+3. **Data Flow Tracing:**
+   "@workspace Trace the data flow of `pos_estimate` from the `Encoder` class in #file:Firmware/MotorControl/encoder.cpp through to where it is exposed in `libfibre`."
+
+4. **Python Tooling:**
+   "@workspace How does `tools/odrive/version.py` extract the git commit hash, and how is that string embedded into the compiled C++ firmware?"
+
+5. **Hardware Definitions:**
+   "@workspace Compare the pinout definitions in #file:Firmware/Board/v3/board.cpp versus the documentation in #file:docs/pinout.md. Are there any discrepancies?"
+
+### @terminal (Shell Integration)
+Use this to generate commands, explain shell output, or fix terminal errors.
+
+1. **Build Commands:**
+   "@terminal What is the specific `tup` command to build only the firmware for the v3.6 board variant? Explain the flags."
+
+2. **Dependency Management:**
+   "@terminal scan `tools/setup.py` and generate the pip command to install all development dependencies for the Python tools."
+
+3. **Flashing Firmware:**
+   "@terminal How do I use `odrivetool` to flash the firmware hex file produced in `Firmware/build/`? Give me the exact command."
+
+4. **Test Execution:**
+   "@terminal Provide the command to run the specific test file `tools/odrive/tests/gpio_test.py` using Python 3."
+
+5. **Git Operations:**
+   "@terminal How do I ignore changes to the auto-generated files in `Firmware/autogen/` without deleting them from the repo?"
+
+### @vscode (IDE Control)
+Use this to utilize Visual Studio Code features, settings, and UI.
+
+1. **Debugging Setup:**
+   "@vscode How do I configure `launch.json` to attach the Cortex-Debug extension to an ST-Link OpenOCD server for this project?"
+
+2. **Task Configuration:**
+   "@vscode Create a `tasks.json` entry to run the `tup` build command when I press Ctrl+Shift+B."
+
+3. **Extension Recommendations:**
+   "@vscode Based on the `.rst` files in the `docs/` folder, which VS Code extension should I install to preview reStructuredText?"
+
+4. **Navigation:**
+   "@vscode Help me find the symbol definition for `Axis::step_cb` and open that file."
+
+5. **Workspace Settings:**
+   "@vscode Explain the C++ formatting rules defined in `.vscode/settings.json` or `.clang-format` if it exists."
+
+6. **Editor Features:**
+   "@vscode How do I enable word wrap?"
+   "@vscode How do I format the document?"
+   "@vscode What is Zen Mode?"
