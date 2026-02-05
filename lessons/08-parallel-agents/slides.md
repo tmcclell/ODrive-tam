@@ -1,0 +1,360 @@
+# Section 8: Parallel Agents & Cloud Agents
+
+**Presentation Slides**  
+**Duration:** 20 minutes (2:30-2:50)  
+**Format:** PowerPoint/Google Slides
+
+---
+
+## Slide 1: Title Slide
+**Title:** Parallel Agents & Cloud Agents  
+**Subtitle:** Orchestrating Multiple AI Experts  
+**Time:** 2:30-2:50 (20 minutes)
+
+---
+
+## Part 1: Running Multiple Agents (8 min)
+
+### Slide 2: Sequential vs Parallel
+**Visual:** Timeline comparison
+
+**Sequential (OLD):**
+```
+Task 1 ████████ (2 min)
+Task 2         ████████ (2 min)
+Task 3                 ████████ (2 min)
+Total: 6 minutes
+```
+
+**Parallel (NEW):**
+```
+ODrive Engineer (firmware)  ████████
+ODrive Toolchain (build)    ████████  (all running together!)
+ODrive QA (testing)         ████████
+ODrive Reviewer (review)    ████████
+Total: 2 minutes
+```
+
+**How:** Select each agent from the dropdown in separate chat windows
+
+**Impact:** 4x faster! ⚡
+
+---
+
+### Slide 3: When to Use Parallel Agents
+**Layout:** Two columns
+
+**✅ Good Use Cases:**
+- Independent tasks
+- Cross-domain features
+- Multi-file refactoring
+- Research + implementation
+
+**❌ Poor Use Cases:**
+- Dependent tasks (Task B needs Task A)
+- Same file edits (merge conflicts)
+- Simple tasks (overhead not worth it)
+
+---
+
+### Slide 4: Parallel Agent Patterns
+**Layout:** 3 pattern boxes
+
+**Pattern 1: Multi-Agent Domain Coverage**
+```
+Window 1: ODrive Engineer  → Algorithm design & firmware
+Window 2: ODrive Toolchain → Build & validation
+Window 3: ODrive Reviewer  → Code review
+Window 4: ODrive QA        → Test plan & quality
+```
+
+**Pattern 2: Multi-Module**
+```
+Window 1: ODrive Engineer  → Module A
+Window 2: ODrive Engineer  → Module B
+Window 3: ODrive Toolchain → Build all modules
+Window 4: ODrive QA        → Test generation
+```
+
+**Pattern 3: Dev + QA + Ops Split**
+```
+Window 1: ODrive Engineer → motor.cpp changes
+Window 2: ODrive Engineer → odrive_can.cpp changes
+Window 3: ODrive QA       → Test generation
+Window 4: ODrive Ops      → CI/CD verification
+```
+
+**Key:** Select the appropriate agent from dropdown in each window!
+
+---
+
+### Slide 5: Coordination Strategy
+**Visual:** Workflow diagram
+
+```
+Phase 1: Parallel Design (5 min)
+  ├─ Window 1: ODrive Engineer  → Algorithm & firmware design
+  ├─ Window 2: ODrive Toolchain → Build environment check
+  ├─ Window 3: ODrive Reviewer  → Architecture review
+  └─ Window 4: ODrive QA        → Test planning
+         ↓
+Phase 2: Review & Align (5 min)
+  └─ Identify integration points
+         ↓
+Phase 3: Parallel Implementation (10 min)
+  └─ Each window implements their part
+         ↓
+Phase 4: Integration (5 min)
+  └─ Combine and test (use ODrive QA)
+```
+
+**Note:** Select each agent from the dropdown in its chat window!
+
+---
+
+## Part 2: Cloud/Background Agents (7 min)
+
+### Slide 6: Local vs Cloud Agents
+**Layout:** Comparison table
+
+| Local Agents | Cloud Agents |
+|--------------|--------------|
+| Run in VS Code | Run on GitHub |
+| Interactive | Asynchronous |
+| You wait for response | Get notification |
+| Real-time iteration | Background processing |
+
+---
+
+### Slide 7: Background Agent Use Cases
+**Layout:** 4 boxes
+
+1. **Code Review Automation**
+   - PR opened → ODrive Reviewer reviews → Comments
+   - Or ODrive QA invokes `cpp-testing` skill
+
+2. **Continuous Refactoring**
+   - Nightly: ODrive Engineer adds docs, modernizes code
+
+3. **Build & Test Automation**
+   - ODrive Ops invokes `odrive-ops` skill
+   - ODrive Toolchain runs build verification
+
+4. **Ada Migration Projects**
+   - Ada to C++ Migrator for legacy migration tasks
+
+---
+
+### Slide 8: Background Agent Workflow
+**Visual:** Flow diagram
+
+```
+Developer ──→ Define Task
+               ↓
+       Cloud Agent ──→ Execute
+               ↓
+          Create PR
+               ↓
+       Team Review ──→ Approve?
+               ↓           ↓
+             YES          NO
+               ↓           ↓
+            Merge      Refine
+```
+
+**Key Point:** Always review agent-generated PRs!
+
+---
+
+### Slide 9: Benefits & Limitations
+**Layout:** Two columns
+
+**✅ Benefits:**
+- Asynchronous work
+- Large-scale tasks
+- Scheduled execution
+- Audit trail in PRs
+- Team collaboration
+
+**⚠️ Limitations:**
+- Requires GitHub.com
+- Less interactive
+- Review required
+- Rate limits
+- Context size limits
+
+---
+
+## Part 3: Live Demo (5 min)
+
+### Slide 10: Demo - Encoder Calibration
+**Slide Type:** Demo announcement
+
+**Text:**
+> 🎬 **LIVE DEMO: Parallel Agent Workflows**
+> 
+> Feature: Encoder Calibration
+> 
+> **Windows (Different Specialized Agents):**
+> 1. ODrive Engineer (firmware focus) → Implementation
+> 2. ODrive Engineer (control focus) → Control strategy
+> 3. ODrive Toolchain → Build verification
+> 4. ODrive QA → Test plan (invokes cpp-testing skill)
+> 
+> **Watch:** All 4 windows working simultaneously!
+> 
+> **Key Insight:** Agents invoke skills automatically based on task.
+> 
+> See: `demo-script.md`
+
+**Speaker Notes:** Execute the 5-minute demo
+
+---
+
+## Closing
+
+### Slide 11: Key Takeaways
+**Layout:** Summary bullets
+
+**Section 8: Parallel Agents**
+✅ 4x faster with parallel workflows  
+✅ 6 agents: **ODrive Engineer**, **ODrive QA**, **ODrive Ops**, **ODrive Reviewer**, **ODrive Toolchain**, **Ada to C++ Migrator**  
+✅ 9 specialized skills invoked automatically  
+✅ Different agents for different domains  
+✅ Orchestration is the skill  
+✅ Background agents for scale  
+
+---
+
+### Slide 12: Quick Exercise
+**Text:**
+> 🏋️ **5-Minute Exercise**
+> 
+> **Task:** CAN Bus Diagnostics
+> 
+> Use 3 parallel windows:
+> - ODrive Engineer (firmware implementation)
+> - ODrive Toolchain (build verification)  
+> - ODrive QA (testing)
+> 
+> **Note:** Use specialized agents for each domain!
+> 
+> See: `hands-on-exercise.md`
+
+---
+
+### Slide 13: Q&A
+**Layout:** Question prompts
+
+**Common Questions:**
+- How many windows can I run in parallel?
+- What if agents give contradictory advice?
+- Which agent should I use for what task?
+  - **See the 6-agent guide in readme.md**
+- Do parallel agents cost more?
+- Can I use this in air-gapped environments?
+
+**Open Floor:** Any questions?
+
+---
+
+### Slide 14: Resources
+**Layout:** Resource links
+
+📚 **Materials:**
+- Workshop Repo: [GitHub link]
+- Prompt Library: `prompt-library.md`
+- Demo Scripts: `demo-script.md`
+
+📖 **Documentation:**
+- GitHub Copilot Docs
+- ODrive Documentation
+- Custom Agent Guide
+
+💬 **Support:**
+- Workshop Slack: #copilot-workshop
+- Email: [presenter email]
+
+---
+
+### Slide 15: Thank You
+**Layout:** Closing slide
+
+**Text:**
+> 🎉 **Thank You!**
+> 
+> **Remember:**  
+> You're not just coding anymore -  
+> You're orchestrating AI experts!
+> 
+> **Next:** Break (2:50-3:00)
+> **Then:** Day 1 Wrap-Up (3:00-3:15)
+
+---
+
+## Appendix: Backup Slides
+
+### Backup Slide 1: Conflict Resolution
+**When agents give contradictory advice:**
+
+1. Review context provided to each
+2. Ask for justification: "Why this approach?"
+3. Use domain expert as tie-breaker
+4. Consult team/documentation
+5. Go with safest/simplest option
+
+---
+
+### Backup Slide 2: Cost Considerations
+**Do parallel agents cost more?**
+
+- Same total token usage
+- Faster wall-clock time
+- No "per-agent" fee
+- Rate limits may apply
+- Overall: More efficient!
+
+---
+
+## Slide Design Notes
+
+### Visual Style
+- **Clean, minimal** - Not too much text
+- **Timeline diagrams** - Show speed improvements
+- **Flow diagrams** - Illustrate workflows
+- **Icons** - Use emojis or simple icons
+- **Consistent colors** - Match Section 4 style
+
+### Fonts
+- **Titles:** 44pt, Bold
+- **Body:** 24-28pt
+- **Code:** 20pt, Monospace (Consolas, Monaco)
+
+### Animation
+- **Minimal** - Simple fade-ins
+- **Timeline reveals** - Show sequential vs parallel
+- **Avoid** - Transitions, spins, bounces
+
+---
+
+## Timing Breakdown
+
+| Slide Range | Topic | Time |
+|-------------|-------|------|
+| 1-5 | Multiple Agents | 8 min |
+| 6-9 | Cloud Agents | 7 min |
+| 10-15 | Demo & Close | 5 min |
+| **Total** | | **20 min** |
+
+---
+
+## Presenter Reminders
+
+- ⏰ **Keep it tight** - 20 minutes goes fast!
+- 🎤 **Emphasize speed** - Show the time savings
+- 👀 **Demo is key** - Seeing 4 agents work is powerful
+- 🖱️ **Have backup** - Pre-recorded if network fails
+- ⏸️ **Save time for exercise** - 5 minutes hands-on
+- 📱 **Phone on silent** - No interruptions
+
+**Good luck! 🚀**
