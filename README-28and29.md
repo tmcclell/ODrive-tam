@@ -34,7 +34,7 @@ A hands-on hackathon teaching embedded C++ developers how to leverage GitHub Cop
 ### Copilot Features
 
 - Inline code completion and Chat modes (@workspace, @vscode)
-- TODO: Model picking - premium requests.
+- Model picking - premium requests.
 - Context steering with copilot-instructions.md and prompt files
 - Decomposition and iterative refinement for complex tasks
 - Custom agents and skills for domain-specific workflows
